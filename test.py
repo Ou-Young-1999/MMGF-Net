@@ -42,8 +42,8 @@ def main():
     num = 0
     for child in net.children():
         if num == 0:
-            in_channel = child.fc.in_features#迁移学习
-            child.fc = nn.Linear(in_channel, 2)#修改最后一层全连接层
+            in_channel = child.fc.in_features
+            child.fc = nn.Linear(in_channel, 2)
             child.to(device)
             #print(child)
             break
@@ -131,50 +131,50 @@ def main():
             out_cli.append(soft_cli)
             
             correct = sum(targetsi == predicti for targetsi, predicti in zip(test_labels, predict_y))
-            tp = sum(targetsi and predicti for targetsi, predicti in zip(test_labels, predict_y))  # 真阳
-            ap = sum(test_labels)  # 实阳
-            prep = sum(predict_y)  # 预测是阳
-            tn = sum(1 - (targetsi or predicti) for targetsi, predicti in zip(test_labels, predict_y))  # 真阴
-            an = len(test_labels) - sum(test_labels)  # 实阴
-            pren = len(test_labels) - sum(predict_y)  # 预测是阴
-            num_correct += correct  # 总准确数目
-            num_examples += len(test_labels)  # 总样本量
-            num_tp += tp  # 总真+
-            num_tn += tn  # 总真-
-            num_ap += ap  # 总实+
-            num_an += an  # 总实—
+            tp = sum(targetsi and predicti for targetsi, predicti in zip(test_labels, predict_y))  
+            ap = sum(test_labels)  
+            prep = sum(predict_y)  
+            tn = sum(1 - (targetsi or predicti) for targetsi, predicti in zip(test_labels, predict_y)) 
+            an = len(test_labels) - sum(test_labels)  
+            pren = len(test_labels) - sum(predict_y)  
+            num_correct += correct  
+            num_examples += len(test_labels) 
+            num_tp += tp  
+            num_tn += tn  
+            num_ap += ap  
+            num_an += an  
             num_prep += prep
             num_pren += pren
 
             correct_img = sum(targetsi == predicti for targetsi, predicti in zip(test_labels, predict_y_img))
-            tp_img = sum(targetsi and predicti for targetsi, predicti in zip(test_labels, predict_y_img))  # 真阳
-            ap_img = sum(test_labels)  # 实阳
-            prep_img = sum(predict_y_img)  # 预测是阳
-            tn_img = sum(1 - (targetsi or predicti) for targetsi, predicti in zip(test_labels, predict_y_img))  # 真阴
-            an_img = len(test_labels) - sum(test_labels)  # 实阴
-            pren_img = len(test_labels) - sum(predict_y_img)  # 预测是阴
-            num_correct_img += correct_img  # 总准确数目
-            num_examples_img += len(test_labels)  # 总样本量
-            num_tp_img += tp_img  # 总真+
-            num_tn_img += tn_img  # 总真-
-            num_ap_img += ap_img  # 总实+
-            num_an_img += an_img  # 总实—
+            tp_img = sum(targetsi and predicti for targetsi, predicti in zip(test_labels, predict_y_img))  
+            ap_img = sum(test_labels)  
+            prep_img = sum(predict_y_img) 
+            tn_img = sum(1 - (targetsi or predicti) for targetsi, predicti in zip(test_labels, predict_y_img))  
+            an_img = len(test_labels) - sum(test_labels)  
+            pren_img = len(test_labels) - sum(predict_y_img)  
+            num_correct_img += correct_img  
+            num_examples_img += len(test_labels)  
+            num_tp_img += tp_img  
+            num_tn_img += tn_img  
+            num_ap_img += ap_img  
+            num_an_img += an_img  
             num_prep_img += prep_img
             num_pren_img += pren_img
 
             correct_cli = sum(targetsi == predicti for targetsi, predicti in zip(test_labels, predict_y_cli))
-            tp_cli = sum(targetsi and predicti for targetsi, predicti in zip(test_labels, predict_y_cli))  # 真阳
-            ap_cli = sum(test_labels)  # 实阳
-            prep_cli = sum(predict_y_cli)  # 预测是阳
-            tn_cli = sum(1 - (targetsi or predicti) for targetsi, predicti in zip(test_labels, predict_y_cli))  # 真阴
-            an_cli = len(test_labels) - sum(test_labels)  # 实阴
-            pren_cli = len(test_labels) - sum(predict_y_cli)  # 预测是阴
-            num_correct_cli += correct_cli  # 总准确数目
-            num_examples_cli += len(test_labels)  # 总样本量
-            num_tp_cli += tp_cli  # 总真+
-            num_tn_cli += tn_cli  # 总真-
-            num_ap_cli += ap_cli  # 总实+
-            num_an_cli += an_cli  # 总实—
+            tp_cli = sum(targetsi and predicti for targetsi, predicti in zip(test_labels, predict_y_cli)) 
+            ap_cli = sum(test_labels) 
+            prep_cli = sum(predict_y_cli) 
+            tn_cli = sum(1 - (targetsi or predicti) for targetsi, predicti in zip(test_labels, predict_y_cli)) 
+            an_cli = len(test_labels) - sum(test_labels) 
+            pren_cli = len(test_labels) - sum(predict_y_cli)  
+            num_correct_cli += correct_cli 
+            num_examples_cli += len(test_labels)  
+            num_tp_cli += tp_cli  
+            num_tn_cli += tn_cli  
+            num_ap_cli += ap_cli  
+            num_an_cli += an_cli 
             num_prep_cli += prep_cli
             num_pren_cli += pren_cli
 
@@ -182,39 +182,39 @@ def main():
     val_accurate_img = acc_img / test_num
     val_accurate_cli = acc_cli / test_num
 
-    yRecall = num_tp / (num_ap+ 1e-8)  # 召回率
+    yRecall = num_tp / (num_ap+ 1e-8) 
     yPrecision = num_tp / (num_prep+ 1e-8)
     yF1 = 2 * yRecall * yPrecision / (yRecall + yPrecision + 1e-8)
-    nRecall = num_tn / (num_an + 1e-8) # 召回率
+    nRecall = num_tn / (num_an + 1e-8)
     nPrecision = num_tn / (num_pren+ 1e-8)
     nF1 = 2 * nRecall * nPrecision / (nRecall + nPrecision + 1e-8)
 
-    yRecall_img = num_tp_img / (num_ap_img+ 1e-8)  # 召回率
+    yRecall_img = num_tp_img / (num_ap_img+ 1e-8)  
     yPrecision_img = num_tp_img / (num_prep_img+ 1e-8)
     yF1_img = 2 * yRecall_img * yPrecision_img / (yRecall_img + yPrecision_img + 1e-8)
-    nRecall_img = num_tn_img / (num_an_img + 1e-8) # 召回率
+    nRecall_img = num_tn_img / (num_an_img + 1e-8) 
     nPrecision_img = num_tn_img / (num_pren_img+ 1e-8)
     nF1_img = 2 * nRecall_img * nPrecision_img / (nRecall_img + nPrecision_img + 1e-8)
 
-    yRecall_cli = num_tp_cli / (num_ap_cli+ 1e-8)  # 召回率
+    yRecall_cli = num_tp_cli / (num_ap_cli+ 1e-8)  
     yPrecision_cli = num_tp_cli / (num_prep_cli+ 1e-8)
     yF1_cli = 2 * yRecall_cli * yPrecision_cli / (yRecall_cli + yPrecision_cli + 1e-8)
-    nRecall_cli = num_tn_cli / (num_an_cli + 1e-8) # 召回率
+    nRecall_cli = num_tn_cli / (num_an_cli + 1e-8)
     nPrecision_cli = num_tn_cli / (num_pren_cli+ 1e-8)
     nF1_cli = 2 * nRecall_cli * nPrecision_cli / (nRecall_cli + nPrecision_cli + 1e-8)
     print('Test Acc: %.3f' %(val_accurate))
     print('Image Acc: %.3f' %(val_accurate_img))
     print('Clinical Acc: %.3f' %(val_accurate_cli))
-    print('阳性召回率={:.2f},阳性准确度={:.2f},阳性F1={:.2f} | 阴性召回率={:.2f},阴性准确度={:.2f},阴性F1={:.2f},'.format(
+    print('P-recall={:.2f},P-precision={:.2f},P-F1={:.2f} | N-recall={:.2f},N-precision={:.2f},N-F1={:.2f},'.format(
         yRecall, yPrecision, yF1, nRecall, nPrecision, nF1))  
-    print('阳性召回率={:.2f},阳性准确度={:.2f},阳性F1={:.2f} | 阴性召回率={:.2f},阴性准确度={:.2f},阴性F1={:.2f},'.format(
+    print('P-recall={:.2f},P-precision={:.2f},P-F1={:.2f} | N-recall={:.2f},N-precision={:.2f},N-F1={:.2f},'.format(
         yRecall_img, yPrecision_img, yF1_img, nRecall_img, nPrecision_img, nF1_img))  
-    print('阳性召回率={:.2f},阳性准确度={:.2f},阳性F1={:.2f} | 阴性召回率={:.2f},阴性准确度={:.2f},阴性F1={:.2f},'.format(
+    print('P-recall={:.2f},P-precision={:.2f},P-F1={:.2f} | N-recall={:.2f},N-precision={:.2f},N-F1={:.2f},'.format(
         yRecall_cli, yPrecision_cli, yF1_cli, nRecall_cli, nPrecision_cli, nF1_cli))  
 
     with open("./result/MBGF-Net.txt", 'w', encoding="utf-8") as f:        
         f.write('Test Acc: %.3f\n' %(val_accurate))
-        f.write('阳性召回率={:.2f},阳性准确度={:.2f},yF1={:.2f} | 阴性召回率={:.2f},阴性准确度={:.2f},阴性F1={:.2f},\n'.format(
+        f.write('P-recall={:.2f},P-precision={:.2f},P-F1={:.2f} | N-recall={:.2f},N-precision={:.2f},N-F1={:.2f},\n'.format(
             yRecall, yPrecision, yF1, nRecall, nPrecision, nF1))
         f.write('label   pre   probability'+'\n')
         for i in range(len(label)):
